@@ -13,7 +13,14 @@ class ArchaeologicalMapper {
         this.artifactsLayer = null;
         this.segmentationLayer = null;
         this.isOnline = false;
-        this.baseUrl = "http://localhost:5000";
+        
+        // Detect environment and set backend URL
+        this.isProduction = window.location.hostname !== 'localhost' && 
+                           window.location.hostname !== '127.0.0.1';
+        this.baseUrl = this.isProduction 
+            ? "https://archaeological-backend.onrender.com" 
+            : "http://localhost:5000";
+        
         this.imageBounds = null;
         this.isProcessing = false;
         this.isUploading = false;
@@ -27,6 +34,8 @@ class ArchaeologicalMapper {
         this.initEventListeners();
         this.checkBackendStatus();
         console.log("ArchaeoAI Mapper initialized successfully");
+        console.log("Backend URL:", this.baseUrl);
+        console.log("Mode:", this.isProduction ? "Production" : "Development");
     }
 
     initMap() {
@@ -64,7 +73,7 @@ class ArchaeologicalMapper {
         try {
             console.log("Checking backend connection...");
             
-            const response = await fetch(`${this.baseUrl}/api/status`, {
+            const response = await fetch(`${this.baseUrl}`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'
@@ -157,7 +166,7 @@ class ArchaeologicalMapper {
         try {
             console.log("Uploading to backend...");
             
-            const response = await fetch(`${this.baseUrl}/api/real/upload`, {
+            const response = await fetch(`${this.baseUrl}/api/upload`, {
                 method: 'POST',
                 body: formData
             });
@@ -321,7 +330,7 @@ class ArchaeologicalMapper {
         this.updateProgress('processingProgress', 50);
         
         try {
-            const response = await fetch(`${this.baseUrl}/api/real/segment`, {
+            const response = await fetch(`${this.baseUrl}/api/segment`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -432,7 +441,7 @@ class ArchaeologicalMapper {
         this.updateProgress('processingProgress', 70);
         
         try {
-            const response = await fetch(`${this.baseUrl}/api/real/detect`, {
+            const response = await fetch(`${this.baseUrl}/api/detect`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
