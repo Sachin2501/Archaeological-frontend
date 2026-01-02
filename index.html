@@ -25,69 +25,6 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css" />
-
-    <!-- Backend Test Script -->
-    <!-- <script>
-      // Test backend on page load
-      window.addEventListener("load", async () => {
-        try {
-          const response = await fetch("http://localhost:5000/api/status", {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-            },
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            console.log("✅ Backend connected:", data);
-
-            // Update backend status in UI
-            const backendStatus = document.getElementById("backendStatus");
-            if (backendStatus) {
-              backendStatus.innerHTML =
-                '<i class="fas fa-check-circle text-success me-1"></i> Backend: Connected ✓';
-              backendStatus.className = "text-success";
-            }
-
-            const processingMode = document.getElementById("processingMode");
-            if (processingMode) {
-              processingMode.textContent = "Online Mode";
-              processingMode.className = "current-image-mode bg-success";
-            }
-          } else {
-            console.log("⚠️ Backend responded with error:", response.status);
-            updateBackendStatus(false);
-          }
-        } catch (error) {
-          console.log("❌ Backend connection failed:", error.message);
-          updateBackendStatus(false);
-        }
-      });
-
-      function updateBackendStatus(isConnected) {
-        const backendStatus = document.getElementById("backendStatus");
-        const processingMode = document.getElementById("processingMode");
-
-        if (backendStatus) {
-          backendStatus.innerHTML = isConnected
-            ? '<i class="fas fa-check-circle text-success me-1"></i> Backend: Connected ✓'
-            : '<i class="fas fa-exclamation-triangle text-warning me-1"></i> Backend: Offline';
-          backendStatus.className = isConnected
-            ? "text-success"
-            : "text-warning";
-        }
-
-        if (processingMode) {
-          processingMode.textContent = isConnected
-            ? "Online Mode"
-            : "Offline Mode";
-          processingMode.className = isConnected
-            ? "current-image-mode bg-success"
-            : "current-image-mode bg-warning";
-        }
-      }
-    </script> -->
   </head>
   <body>
     <!-- Navigation Bar -->
