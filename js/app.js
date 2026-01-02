@@ -14,12 +14,20 @@ class ArchaeologicalMapper {
         this.segmentationLayer = null;
         this.isOnline = false;
         
-        // Detect environment and set backend URL
+        // Backend URLs - FIXED FOR YOUR BACKEND
         this.isProduction = window.location.hostname !== 'localhost' && 
                            window.location.hostname !== '127.0.0.1';
         this.baseUrl = this.isProduction 
             ? "https://archaeological-backend.onrender.com" 
             : "http://localhost:5000";
+        
+        // API Endpoints based on your backend structure
+        this.endpoints = {
+            upload: "/api/real/upload",      // CHANGED from /api/upload
+            segment: "/api/real/segment",    // CHANGED from /api/segment
+            detect: "/api/real/detect",      // CHANGED from /api/detect
+            status: "/"
+        };
         
         this.imageBounds = null;
         this.isProcessing = false;
@@ -35,6 +43,7 @@ class ArchaeologicalMapper {
         this.checkBackendStatus();
         console.log("ArchaeoAI Mapper initialized successfully");
         console.log("Backend URL:", this.baseUrl);
+        console.log("API Endpoints:", this.endpoints);
         console.log("Mode:", this.isProduction ? "Production" : "Development");
     }
 
@@ -166,7 +175,8 @@ class ArchaeologicalMapper {
         try {
             console.log("Uploading to backend...");
             
-            const response = await fetch(`${this.baseUrl}/api/real/upload`, {
+            // FIXED ENDPOINT - using this.endpoints.upload
+            const response = await fetch(`${this.baseUrl}${this.endpoints.upload}`, {
                 method: 'POST',
                 body: formData
             });
@@ -330,7 +340,8 @@ class ArchaeologicalMapper {
         this.updateProgress('processingProgress', 50);
         
         try {
-            const response = await fetch(`${this.baseUrl}/api/real/segment`, {
+            // FIXED ENDPOINT - using this.endpoints.segment
+            const response = await fetch(`${this.baseUrl}${this.endpoints.segment}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -441,7 +452,8 @@ class ArchaeologicalMapper {
         this.updateProgress('processingProgress', 70);
         
         try {
-            const response = await fetch(`${this.baseUrl}/api/real/detect`, {
+            // FIXED ENDPOINT - using this.endpoints.detect
+            const response = await fetch(`${this.baseUrl}${this.endpoints.detect}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
