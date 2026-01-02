@@ -166,7 +166,7 @@ class ArchaeologicalMapper {
         try {
             console.log("Uploading to backend...");
             
-            const response = await fetch(`${this.baseUrl}/api/upload`, {
+            const response = await fetch(`${this.baseUrl}/api/real/upload`, {
                 method: 'POST',
                 body: formData
             });
@@ -330,7 +330,7 @@ class ArchaeologicalMapper {
         this.updateProgress('processingProgress', 50);
         
         try {
-            const response = await fetch(`${this.baseUrl}/api/segment`, {
+            const response = await fetch(`${this.baseUrl}/api/real/segment`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -441,7 +441,7 @@ class ArchaeologicalMapper {
         this.updateProgress('processingProgress', 70);
         
         try {
-            const response = await fetch(`${this.baseUrl}/api/detect`, {
+            const response = await fetch(`${this.baseUrl}/api/real/detect`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
